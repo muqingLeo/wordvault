@@ -9,61 +9,60 @@
     body {
       width: 380px;
       margin: 0;
-      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8f9fa;
+      font-family: 'SF Pro Display', system-ui, sans-serif;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       color: #1d1d1f;
-      line-height: 1.5;
     }
     h2 {
       margin: 0;
-      padding: 16px 20px 12px;
-      font-size: 22px;
+      padding: 20px;
+      font-size: 24px;
       font-weight: 600;
-      letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #0071e3, #4da2ff);
+      background: linear-gradient(135deg, rgba(0,113,227,0.95), rgba(77,162,255,0.9));
       color: white;
-      border-bottom: 1px solid #d2d2d7;
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
     }
     .tabs {
       display: flex;
-      background: white;
-      border-bottom: 1px solid #d2d2d7;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
     }
     .tab {
       flex: 1;
-      padding: 12px;
+      padding: 14px;
       text-align: center;
-      font-size: 15px;
       font-weight: 500;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: 0.3s;
     }
     .tab.active {
+      background: rgba(255,255,255,0.95);
       color: #0071e3;
-      border-bottom: 3px solid #0071e3;
+      box-shadow: 0 2px 8px rgba(0,113,227,0.15);
     }
     #mainContent {
-      padding: 20px;
-      min-height: 280px;
-      background: white;
+      padding: 24px;
+      min-height: 300px;
+      background: rgba(255,255,255,0.85);
     }
     button {
-      background: #0071e3;
+      background: rgba(0,113,227,0.95);
       color: white;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 9999px;
       font-size: 15px;
       font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0,113,227,0.25);
       cursor: pointer;
       transition: all 0.2s;
     }
     button:hover {
-      background: #0066cc;
-      transform: scale(1.02);
-    }
-    ul {
-      padding-left: 16px;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0,113,227,0.3);
     }
   </style>
 </head>
