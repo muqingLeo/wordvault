@@ -1,10 +1,8 @@
-console.log('✅ WordVault Content Script Active');
+console.log('WordVault Content Ready');
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  console.log('Message received in content script:', message);
-  if (message.action === "lookup") {
-    console.log('Lookup requested for:', message.text);
-    // For now, just log - popup will handle display
-    sendResponse({status: "received"});
+chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
+  if (msg.action === "getSelection") {
+    const text = window.getSelection().toString().trim();
+    sendResponse({text: text});
   }
 });

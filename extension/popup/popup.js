@@ -1,46 +1,43 @@
-// WordVault Popup with Dictionary API
-let currentWord = '';
+// Improved WordVault Popup
+document.addEventListener('DOMContentLoaded', () => {
+  const content = document.getElementById('content');
+
+  // Try to get selected text from current tab
+  chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+    chrome.tabs.sendMessage(tabs[0].id, {action: "getSelection"}, (response) => {
+      if (response && response.text) {
+        lookupWord(response.text);
+      } else {
+        content.innerHTML = `<p>Select a word and use right-click menu.</p>`;
+      }
+    });
+  });
+});
 
 async function lookupWord(word) {
   const content = document.getElementById('content');
   content.innerHTML = `<p>Looking up "<strong>${word}</strong>"...</p>`;
 
   try {
-    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
-    if (!res.ok) throw new Error('Word not found');
+    const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`);
+    if (!res.ok) throw new Error();
 
     const data = await res.json();
     const entry = data[0];
 
-    let html = `
-      <h3>${entry.word}</h3>
-      <p><em>${entry.phonetic || ''}</em></p>
-    `;
+    let html = `<h3>${entry.word}</h3><p><em>${entry.phonetic || ''}</em></p>`;
 
-    entry.meanings.forEach(meaning => {
-      html += `<p><strong>${meaning.partOfSpeech}</strong></p>`;
-      meaning.definitions.slice(0, 3).forEach(def => {
-        html += `<p>• ${def.definition}</p>`;
-        if (def.example) html += `<p style="font-style:italic; color:#666;">Example: ${def.example}</p>`;
+    entry.meanings.forEach(m => {
+      html += `<p><strong>${m.partOfSpeech}</strong></p>`;
+      m.definitions.slice(0,2).forEach(d => {
+        html += `<p>• ${d.definition}</p>`;
       });
     });
 
-    html += `<button id="saveBtn" style="margin-top:12px; padding:8px;">Save to WordVault</button>`;
+    html += `<button id="saveBtn">💾 Save to My Dictionary</button>`;
     content.innerHTML = html;
 
-    document.getElementById('saveBtn').addEventListener('click', () => {
-      alert('✅ Word saved! (Backend coming in Phase 4)');
-    });
-
-  } catch (err) {
-    content.innerHTML = `<p>❌ Could not find definition for "${word}"</p>`;
+  } catch (e) {
+    content.innerHTML = `<p>Could not find "${word}". Try a different word.</p>`;
   }
 }
-
-// Listen for messages from content script
-chrome.runtime.onMessage.addListener((msg) => {
-  if (msg.action === "lookup") {
-    currentWord = msg.text;
-    lookupWord(currentWord);
-  }
-});
