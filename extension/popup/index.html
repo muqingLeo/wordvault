@@ -10,65 +10,50 @@
       width: 380px;
       margin: 0;
       font-family: 'SF Pro Display', system-ui, sans-serif;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      color: #1d1d1f;
+      overflow: hidden;
+    }
+    .glass-container {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+      border: 1px solid rgba(255,255,255,0.6);
+      border-radius: 18px;
+      overflow: hidden;
+      position: relative;
+    }
+    .glass-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.4), rgba(255,255,255,0.1));
+      pointer-events: none;
+      z-index: 1;
     }
     h2 {
       margin: 0;
       padding: 20px;
       font-size: 24px;
       font-weight: 600;
-      background: linear-gradient(135deg, rgba(0,113,227,0.95), rgba(77,162,255,0.9));
+      background: linear-gradient(135deg, #0071e3, #40a9ff);
       color: white;
-      border-bottom: 1px solid rgba(255,255,255,0.3);
-      text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-    .tabs {
-      display: flex;
-      background: rgba(255,255,255,0.7);
-      backdrop-filter: blur(10px);
-    }
-    .tab {
-      flex: 1;
-      padding: 14px;
       text-align: center;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.3s;
+      position: relative;
+      z-index: 2;
     }
-    .tab.active {
-      background: rgba(255,255,255,0.95);
-      color: #0071e3;
-      box-shadow: 0 2px 8px rgba(0,113,227,0.15);
-    }
-    #mainContent {
-      padding: 24px;
-      min-height: 300px;
-      background: rgba(255,255,255,0.85);
-    }
-    button {
-      background: rgba(0,113,227,0.95);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 9999px;
-      font-size: 15px;
-      font-weight: 600;
-      box-shadow: 0 4px 12px rgba(0,113,227,0.25);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    button:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(0,113,227,0.3);
+    #content {
+      position: relative;
+      z-index: 2;
+      padding: 16px;
+      min-height: 340px;
     }
   </style>
 </head>
 <body>
-  <h2>WordVault</h2>
-  <div id="content"></div>
+  <div class="glass-container" id="glass">
+    <h2>WordVault</h2>
+    <div id="content"></div>
+  </div>
   <script src="popup.js"></script>
 </body>
 </html>
