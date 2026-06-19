@@ -4,14 +4,72 @@
   <meta charset="UTF-8">
   <title>WordVault</title>
   <style>
-    body { width: 380px; padding: 16px; font-family: system-ui, sans-serif; line-height: 1.5; }
-    h2 { margin: 0 0 12px 0; color: #1e40af; }
-    button { margin-top: 12px; padding: 8px 16px; background: #1e40af; color: white; border: none; border-radius: 4px; cursor: pointer; }
+    @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600&display=swap');
+    
+    body {
+      width: 380px;
+      margin: 0;
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f9fa;
+      color: #1d1d1f;
+      line-height: 1.5;
+    }
+    h2 {
+      margin: 0;
+      padding: 16px 20px 12px;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #0071e3, #4da2ff);
+      color: white;
+      border-bottom: 1px solid #d2d2d7;
+    }
+    .tabs {
+      display: flex;
+      background: white;
+      border-bottom: 1px solid #d2d2d7;
+    }
+    .tab {
+      flex: 1;
+      padding: 12px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab.active {
+      color: #0071e3;
+      border-bottom: 3px solid #0071e3;
+    }
+    #mainContent {
+      padding: 20px;
+      min-height: 280px;
+      background: white;
+    }
+    button {
+      background: #0071e3;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    button:hover {
+      background: #0066cc;
+      transform: scale(1.02);
+    }
+    ul {
+      padding-left: 16px;
+    }
   </style>
 </head>
 <body>
   <h2>WordVault</h2>
-  <div id="content">Loading...</div>
+  <div id="content"></div>
   <script src="popup.js"></script>
 </body>
 </html>
