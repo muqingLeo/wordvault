@@ -1,10 +1,9 @@
-// WordVault Content Script - Detects text selection
+// Content Script
 console.log('WordVault Content Script Loaded');
 
 document.addEventListener('mouseup', () => {
-  const selectedText = window.getSelection().toString().trim();
-  if (selectedText.length > 0 && selectedText.length < 50) {
-    console.log('WordVault: Selected text:', selectedText);
-    // TODO: Show floating button or send to popup
+  const selected = window.getSelection().toString().trim();
+  if (selected.length > 0) {
+    console.log('Selected:', selected);
   }
 });
