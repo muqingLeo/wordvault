@@ -1,9 +1,10 @@
-// Content Script
-console.log('WordVault Content Script Loaded');
+console.log('✅ WordVault Content Script Active');
 
-document.addEventListener('mouseup', () => {
-  const selected = window.getSelection().toString().trim();
-  if (selected.length > 0) {
-    console.log('Selected:', selected);
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  console.log('Message received in content script:', message);
+  if (message.action === "lookup") {
+    console.log('Lookup requested for:', message.text);
+    // For now, just log - popup will handle display
+    sendResponse({status: "received"});
   }
 });

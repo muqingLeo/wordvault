@@ -1,6 +1,3 @@
-// WordVault Background
-console.log('WordVault Background Loaded');
-
 chrome.runtime.onInstalled.addListener(() => {
   chrome.contextMenus.create({
     id: "lookupWord",
@@ -14,10 +11,9 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     chrome.tabs.sendMessage(tab.id, { 
       action: "lookup", 
       text: info.selectionText 
-    }, (response) => {
-      if (chrome.runtime.lastError) {
-        console.error(chrome.runtime.lastError);
-      }
     });
+    
+    // Open popup directly as fallback
+    chrome.action.openPopup();
   }
 });
