@@ -1,0 +1,50 @@
+const glass = document.getElementById('glass');
+
+// === MAXIMUM LIQUID GLASS MOUSE REACTIVE EFFECT ===
+let targetX = 50;
+let targetY = 30;
+
+function updateLiquidLight() {
+  const x = targetX;
+  const y = targetY;
+  
+  // Dynamic radial highlight that follows mouse (very iOS-like)
+  glass.style.setProperty('--mouse-x', `${x}%`);
+  glass.style.setProperty('--mouse-y', `${y}%`);
+  
+  // Extra inner glow + depth based on mouse position
+  glass.style.boxShadow = `
+    0 20px 60px -15px rgba(0, 0, 0, 0.35),
+    0 8px 25px -8px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.45),
+    inset ${x / 8}px ${y / 6}px 80px rgba(255,255,255,0.65)
+  `;
+  
+  requestAnimationFrame(updateLiquidLight);
+}
+
+document.addEventListener('mousemove', (e) => {
+  const rect = glass.getBoundingClientRect();
+  targetX = ((e.clientX - rect.left) / rect.width) * 100;
+  targetY = ((e.clientY - rect.top) / rect.height) * 100;
+});
+
+// Boot the liquid effect
+document.addEventListener('DOMContentLoaded', () => {
+  // Start the animation loop
+  updateLiquidLight();
+  
+  // Initial state
+  glass.style.setProperty('--mouse-x', '45%');
+  glass.style.setProperty('--mouse-y', '30%');
+  
+  // TODO: Add your full dictionary lookup + save logic here
+  // Example placeholder:
+  const content = document.getElementById('content');
+  content.innerHTML = `
+    <div style="text-align:center; padding-top:40px; color:#555;">
+      <p style="font-size:15px; margin:0 0 8px;">Highlight a word on any page → Right-click → "Look up in WordVault"</p>
+      <small style="color:#888;">Liquid glass mode active ✨</small>
+    </div>
+  `;
+});

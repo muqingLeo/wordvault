@@ -1,45 +1,25 @@
 const glass = document.getElementById('glass');
 
-let targetX = 45;
-let targetY = 28;
-
-function animateLiquid() {
-  const currentX = parseFloat(glass.style.getPropertyValue('--mouse-x')) || 45;
-  const currentY = parseFloat(glass.style.getPropertyValue('--mouse-y')) || 28;
-
-  const newX = currentX + (targetX - currentX) * 0.12;
-  const newY = currentY + (targetY - currentY) * 0.12;
-
-  glass.style.setProperty('--mouse-x', `${newX}%`);
-  glass.style.setProperty('--mouse-y', `${newY}%`);
-
-  requestAnimationFrame(animateLiquid);
-}
-
-document.addEventListener('mousemove', (e) => {
+glass.addEventListener('mousemove', (e) => {
   const rect = glass.getBoundingClientRect();
-  targetX = ((e.clientX - rect.left) / rect.width) * 100;
-  targetY = ((e.clientY - rect.top) / rect.height) * 100;
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  glass.style.setProperty('--mx', `${x}%`);
+  glass.style.setProperty('--my', `${y}%`);
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  animateLiquid();
-
-  const content = document.getElementById('content');
-  content.innerHTML = `
-    <h2 style="margin:0 0 6px; font-size:28px; font-weight:700;">resolution</h2>
-    <div style="font-size:13px; color:#666; margin-bottom:16px;">/ˌrezəˈluːʃ(ə)n/</div>
-    
-    <div style="margin-bottom:18px;">
-      <div style="font-weight:600; font-size:13px; color:#444; margin-bottom:6px;">noun</div>
-      <ul style="margin:0; padding-left:18px; line-height:1.55; font-size:14.5px;">
+  // Real lookup logic will go here later
+  document.getElementById('content').innerHTML = `
+    <h2 style="margin:0 0 8px;font-size:32px;">resolution</h2>
+    <p style="margin:0 0 20px;color:#64748b;">/ˌrezəˈluːʃ(ə)n/</p>
+    <div style="margin-bottom:20px;">
+      <strong style="color:#334155;">noun</strong>
+      <ul style="padding-left:20px;margin:8px 0 0;line-height:1.6;">
         <li>A strong will, determination.</li>
         <li>The state of being resolute.</li>
       </ul>
     </div>
-
-    <button class="save-btn" onclick="alert('Saved to dictionary! (demo)')">
-      Save to My Dictionary
-    </button>
+    <button class="glass-btn" onclick="this.textContent='✅ Saved!';this.style.background='#86efac'">Save to My Dictionary</button>
   `;
 });

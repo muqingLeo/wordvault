@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>WordVault</title>
+  <style>
+    :root {
+      --accent: #007AFF;
+    }
+    
+    body {
+      width: 380px;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .glass-container {
+      position: relative;
+      background: rgba(255, 255, 255, 0.085);
+      backdrop-filter: blur(40px) saturate(200%);
+      -webkit-backdrop-filter: blur(40px) saturate(200%);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 26px;
+      overflow: hidden;
+      box-shadow: 
+        0 20px 60px -15px rgba(0, 0, 0, 0.35),
+        0 8px 25px -8px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.08);
+    }
+
+    /* Layer 1: Top highlight */
+    .glass-container::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(255,255,255,0.55) 0%,
+        rgba(255,255,255,0.08) 35%,
+        rgba(255,255,255,0.02) 65%,
+        rgba(180,220,255,0.15) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+      border-radius: 26px;
+    }
+
+    /* Layer 2: Animated liquid highlight (the moving glass) */
+    .glass-container::after {
+      content: '';
+      position: absolute;
+      top: -60%; left: -60%;
+      width: 220%; height: 220%;
+      background: radial-gradient(
+        circle at 35% 25%,
+        rgba(255,255,255,0.35) 0%,
+        rgba(255,255,255,0.12) 25%,
+        transparent 55%
+      );
+      pointer-events: none;
+      z-index: 2;
+      border-radius: 26px;
+      animation: liquid-shift 12s ease-in-out infinite;
+      mix-blend-mode: screen;
+    }
+
+    @keyframes liquid-shift {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(8%, 6%) rotate(2deg); }
+      50% { transform: translate(-4%, 10%) rotate(-1.5deg); }
+      75% { transform: translate(6%, -5%) rotate(1deg); }
+    }
+
+    .header {
+      margin: 0;
+      padding: 22px 24px 18px;
+      font-size: 26px;
+      font-weight: 700;
+      background: linear-gradient(90deg, #007AFF 0%, #00A2FF 100%);
+      color: white;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0 2px 12px rgba(0, 122, 255, 0.35);
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+    }
+
+    #content {
+      padding: 22px 24px;
+      min-height: 360px;
+      position: relative;
+      z-index: 3;
+      color: #1f2937;
+    }
+
+    /* Extra depth for content areas */
+    .definition-card {
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="glass-container" id="glass">
+    <h2 class="header">WordVault</h2>
+    <div id="content"></div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
