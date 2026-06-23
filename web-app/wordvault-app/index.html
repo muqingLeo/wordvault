@@ -10,38 +10,49 @@
         body {
             margin: 0;
             font-family: 'Inter', system-ui, sans-serif;
-            height: 100vh;
-            background: linear-gradient(135deg, #0f172a, #1e2937);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            position: relative;
+            background: #0f172a;
+            color: white;
+            overflow-x: hidden;
         }
 
-        .bg {
-            position: absolute;
-            inset: 0;
-            background: url('https://picsum.photos/id/1015/1920/1080') center/cover;
-            filter: blur(75px) brightness(0.65);
-            z-index: 1;
+        .scroll-bg {
+            min-height: 300vh;
+            background: linear-gradient(#0f172a, #1e2937);
+            padding: 60px 20px 200px;
         }
 
-        .app {
-            position: relative;
-            z-index: 2;
+        .section {
+            max-width: 800px;
+            margin: 0 auto 120px;
+            padding: 40px;
+            border-radius: 24px;
+        }
+
+        .section.dark { background: #0f172a; }
+        .section.medium { background: #1e2937; }
+        .section.light { background: #334155; }
+        .section.colorful { 
+            background: linear-gradient(135deg, #1e3a8a, #7c3aed); 
+        }
+
+        .floating-glass {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
             width: 440px;
             background: rgba(255,255,255,0.065);
-            backdrop-filter: blur(82px) saturate(230%);
-            -webkit-backdrop-filter: blur(82px) saturate(230%);
-            border: 1px solid rgba(255,255,255,0.35);
+            backdrop-filter: blur(82px) saturate(240%);
+            -webkit-backdrop-filter: blur(82px) saturate(240%);
+            border: 1px solid rgba(255,255,255,0.38);
             border-radius: 40px;
             overflow: hidden;
-            box-shadow: 0 45px 100px -25px rgba(0,0,0,0.55);
+            box-shadow: 0 50px 110px -25px rgba(0,0,0,0.6);
         }
 
         .header {
-            padding: 26px 32px 20px;
+            padding: 26px 34px 20px;
             background: linear-gradient(90deg, #007AFF, #60A5FA);
             color: white;
             font-size: 28px;
@@ -49,18 +60,19 @@
             text-align: center;
             position: relative;
             overflow: hidden;
+            border-radius: 40px 40px 0 0;
         }
 
-        /* Lensing specular highlight */
+        /* Strong Lensing + Specular Highlight */
         .header::after {
             content: '';
             position: absolute;
             inset: 0;
             background: radial-gradient(
                 circle at var(--hx, 50%) var(--hy, 32%),
-                rgba(255,255,255,0.8) 0%,
-                rgba(255,255,255,0.3) 30%,
-                transparent 60%
+                rgba(255,255,255,0.95) 0%,
+                rgba(255,255,255,0.45) 25%,
+                transparent 58%
             );
             pointer-events: none;
             transition: all 0.45s cubic-bezier(0.23, 1.0, 0.32, 1);
@@ -73,27 +85,24 @@
         }
 
         .glass-card {
-            background: rgba(255,255,255,0.09);
+            background: rgba(255,255,255,0.085);
             backdrop-filter: blur(26px);
-            border: 1px solid rgba(255,255,255,0.28);
+            border: 1px solid rgba(255,255,255,0.3);
             border-radius: 24px;
             padding: 22px 26px;
             margin-bottom: 24px;
         }
 
-        /* iOS 26 beta 2 style pill buttons */
         .glass-btn {
             width: 100%;
             padding: 17px 24px;
-            background: rgba(255,255,255,0.14);
-            backdrop-filter: blur(24px);
+            background: rgba(255,255,255,0.13);
+            backdrop-filter: blur(22px);
             color: white;
             border: 1px solid rgba(255,255,255,0.32);
             border-radius: 9999px;
             font-weight: 600;
-            font-size: 16px;
             margin-top: 14px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
             transition: all 0.4s cubic-bezier(0.23, 1.0, 0.32, 1);
         }
         .glass-btn:hover {
@@ -103,8 +112,37 @@
     </style>
 </head>
 <body>
-    <div class="bg"></div>
-    <div class="app">
+    <!-- Scrollable varied background -->
+    <div class="scroll-bg">
+        
+        <!-- Section 1: Dark -->
+        <div class="section dark">
+            <h2>Dark Content Area</h2>
+            <p>Scroll down to test how Liquid Glass adapts over different backgrounds.</p>
+        </div>
+
+        <!-- Section 2: Medium -->
+        <div class="section medium">
+            <h2>Medium Brightness Area</h2>
+            <p>Watch the specular highlight and lensing change as content brightness shifts.</p>
+        </div>
+
+        <!-- Section 3: Colorful -->
+        <div class="section colorful">
+            <h2>Colorful Vibrant Area</h2>
+            <p>Strong colors underneath should influence the glass appearance.</p>
+        </div>
+
+        <!-- Section 4: Light -->
+        <div class="section light">
+            <h2>Light Background Area</h2>
+            <p>Notice how shadows and highlights adjust for legibility.</p>
+        </div>
+
+    </div>
+
+    <!-- Floating Liquid Glass Card -->
+    <div class="floating-glass">
         <div class="header" id="header">WordVault</div>
         <div class="content">
             <div style="font-size:44px;font-weight:700;margin-bottom:8px;">resolution</div>
