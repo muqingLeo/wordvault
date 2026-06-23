@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordVault • Liquid Glass</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, sans-serif;
+            height: 100vh;
+            background: linear-gradient(135deg, #0f172a, #1e2937);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://picsum.photos/id/1015/1920/1080') center/cover;
+            filter: blur(75px) brightness(0.65);
+            z-index: 1;
+        }
+
+        .app {
+            position: relative;
+            z-index: 2;
+            width: 440px;
+            background: rgba(255,255,255,0.065);
+            backdrop-filter: blur(82px) saturate(230%);
+            -webkit-backdrop-filter: blur(82px) saturate(230%);
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 45px 100px -25px rgba(0,0,0,0.55);
+        }
+
+        .header {
+            padding: 26px 32px 20px;
+            background: linear-gradient(90deg, #007AFF, #60A5FA);
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Lensing specular highlight */
+        .header::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(
+                circle at var(--hx, 50%) var(--hy, 32%),
+                rgba(255,255,255,0.8) 0%,
+                rgba(255,255,255,0.3) 30%,
+                transparent 60%
+            );
+            pointer-events: none;
+            transition: all 0.45s cubic-bezier(0.23, 1.0, 0.32, 1);
+            mix-blend-mode: screen;
+        }
+
+        .content {
+            padding: 32px;
+            color: white;
+        }
+
+        .glass-card {
+            background: rgba(255,255,255,0.09);
+            backdrop-filter: blur(26px);
+            border: 1px solid rgba(255,255,255,0.28);
+            border-radius: 24px;
+            padding: 22px 26px;
+            margin-bottom: 24px;
+        }
+
+        /* iOS 26 beta 2 style pill buttons */
+        .glass-btn {
+            width: 100%;
+            padding: 17px 24px;
+            background: rgba(255,255,255,0.14);
+            backdrop-filter: blur(24px);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.32);
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 14px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            transition: all 0.4s cubic-bezier(0.23, 1.0, 0.32, 1);
+        }
+        .glass-btn:hover {
+            background: rgba(255,255,255,0.24);
+            transform: translateY(-2px) scale(1.015);
+        }
+    </style>
+</head>
+<body>
+    <div class="bg"></div>
+    <div class="app">
+        <div class="header" id="header">WordVault</div>
+        <div class="content">
+            <div style="font-size:44px;font-weight:700;margin-bottom:8px;">resolution</div>
+            <div style="color:#a5b4fc;margin-bottom:24px;">/ˌrezəˈluːʃ(ə)n/</div>
+            
+            <div class="glass-card">
+                <div style="font-weight:600;color:#e0e7ff;margin-bottom:10px;">NOUN</div>
+                <ul style="padding-left:20px;line-height:1.65;font-size:15.5px;">
+                    <li>A strong will, determination.</li>
+                    <li>The state of being resolute.</li>
+                </ul>
+            </div>
+            
+            <button class="glass-btn">Save to My Dictionary</button>
+            <button class="glass-btn">Add to Review Queue</button>
+        </div>
+    </div>
+
+    <script>
+        const header = document.getElementById('header');
+
+        header.addEventListener('mousemove', (e) => {
+            const rect = header.getBoundingClientRect();
+            const x = ((e.clientX - rect.left) / rect.width) * 100;
+            const y = ((e.clientY - rect.top) / rect.height) * 100;
+            
+            header.style.setProperty('--hx', `${x}%`);
+            header.style.setProperty('--hy', `${y}%`);
+        });
+
+        header.addEventListener('mouseleave', () => {
+            header.style.setProperty('--hx', '50%');
+            header.style.setProperty('--hy', '32%');
+        });
+    </script>
+</body>
+</html>
